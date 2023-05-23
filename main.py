@@ -11,6 +11,10 @@ request = requests.get(url)
 result = request.json()
 
 # Access article titles and descriptions
+body = ""
 for article in result["results"]:
-      print(article["title"])
-      print(article["description"])
+    if article["title"] is not None:
+        body = body + article["title"] + "\n" + article["description"] + 2*"\n"
+
+body = body.encode("utf-8")
+send_email(message=body)
